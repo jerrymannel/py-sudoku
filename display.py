@@ -28,7 +28,7 @@ def displayGridLineByLine(_data):
 		s = "R" + str(r) + " : "
 		for c in range(9):
 			# s += "    C" + str(c)
-			s += " , " + str(_data[r][c])
+			s += str(_data[r][c]) + "."
 		print(s)
 
 def displayLineByLine(_data):
