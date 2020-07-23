@@ -1,10 +1,10 @@
 # import data
-import display
+import display, sys
 from copy import deepcopy
 
 numberSet = [1,2,3,4,5,6,7,8,9]
 
-gridList = [
+gridCoordinates = [
 	[[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2]],
 	[[0, 3], [0, 4], [0, 5], [1, 3], [1, 4], [1, 5], [2, 3], [2, 4], [2, 5]],
 	[[0, 6], [0, 7], [0, 8], [1, 6], [1, 7], [1, 8], [2, 6], [2, 7], [2, 8]],
@@ -17,7 +17,7 @@ gridList = [
 ]
 
 def __cleanUpEachGrid(_grid):
-	for grid in gridList:
+	for grid in gridCoordinates:
 		numbers = []
 		for index in grid:
 			if type(_grid[index[0]][index[1]]) is int:
@@ -101,7 +101,7 @@ def __cleanUpNumberGrid(_numberGrid):
 		__cleanUpNumberGrid(_numberGrid)
 
 def __cleanUpUsingFrequencyDistribution(_numberGrid):
-	for grid in gridList:
+	for grid in gridCoordinates:
 		numberFrequency = [0,0,0,0,0,0,0,0,0]
 		for index in grid:
 			if type(_numberGrid[index[0]][index[1]]) is list:
@@ -114,17 +114,76 @@ def __cleanUpUsingFrequencyDistribution(_numberGrid):
 					if(type(_numberGrid[index[0]][index[1]]) is list and _numberGrid[index[0]][index[1]].count(num) == 1):
 						_numberGrid[index[0]][index[1]] = [num]
 
+def __cleanUpUsingColumnFrequencyDistribution(_numberGrid):
+	# print("------- ColumnFrequencyDistribution ----------")
+	columnNumberFrequencyGrid = []
+	for number in numberSet:
+		columnNumberFrequency = [0,0,0,0,0,0,0,0,0]
+		for columnIndex in range(9):
+			for rowIndex in range(9):
+				if type(_numberGrid[rowIndex][columnIndex]) is list and _numberGrid[rowIndex][columnIndex].count(number) == 1:
+						columnNumberFrequency[columnIndex] += 1
+		columnNumberFrequencyGrid.append(columnNumberFrequency)
+	# display.displayGrid(columnNumberFrequencyGrid)
+	for number in numberSet:
+		frequencyList = columnNumberFrequencyGrid[number -1]
+		for columnIndex in range(9):
+			if (frequencyList[columnIndex] == 1):
+				for rowIndex in range(9):
+					if(type(_numberGrid[rowIndex][columnIndex]) is list and _numberGrid[rowIndex][columnIndex].count(number) == 1):
+						_numberGrid[rowIndex][columnIndex] = [number]
+
+def __cleanUpUsingRowFrequencyDistribution(_numberGrid):
+	# print("------- RowFrequencyDistribution ----------")
+	rowNumberFrequencyGrid = []
+	for number in numberSet:
+		rowNumberFrequency = [0,0,0,0,0,0,0,0,0]
+		for rowIndex in range(9):
+			for colIndex in range(9):
+				if type(_numberGrid[rowIndex][colIndex]) is list and _numberGrid[rowIndex][colIndex].count(number) == 1:
+						rowNumberFrequency[rowIndex] += 1
+		rowNumberFrequencyGrid.append(rowNumberFrequency)
+	# display.displayGrid(rowNumberFrequencyGrid)
+	for number in numberSet:
+		frequencyList = rowNumberFrequencyGrid[number -1]
+		for rowIndex in range(9):
+			if (frequencyList[rowIndex] == 1):
+				for columnIndex in range(9):
+					if(type(_numberGrid[rowIndex][columnIndex]) is list and _numberGrid[rowIndex][columnIndex].count(number) == 1):
+						_numberGrid[rowIndex][columnIndex] = [number]
+
 def scanAndClean(_numberGrid):
 	colValues = __columnScanAndCleanData(_numberGrid)
 	__cleanUpNumberGridUsingColValues(_numberGrid, colValues)
 	__cleanUpNumberGridUsingRowValues(_numberGrid)
 	__cleanUpEachGrid(_numberGrid)
+	
 	__cleanUpUsingFrequencyDistribution(_numberGrid)
 	__cleanUpNumberGrid(_numberGrid)
+	colValues = __columnScanAndCleanData(_numberGrid)
+	__cleanUpNumberGridUsingColValues(_numberGrid, colValues)
+	__cleanUpNumberGridUsingRowValues(_numberGrid)
+	__cleanUpEachGrid(_numberGrid)
+	# display.displayGridLineByLine(_numberGrid)
+	
+	__cleanUpUsingColumnFrequencyDistribution(_numberGrid)
+	__cleanUpNumberGrid(_numberGrid)
+	colValues = __columnScanAndCleanData(_numberGrid)
+	__cleanUpNumberGridUsingColValues(_numberGrid, colValues)
+	__cleanUpNumberGridUsingRowValues(_numberGrid)
+	__cleanUpEachGrid(_numberGrid)
+	# display.displayGridLineByLine(_numberGrid)
+	
+	__cleanUpUsingRowFrequencyDistribution(_numberGrid)
+	__cleanUpNumberGrid(_numberGrid)
+	colValues = __columnScanAndCleanData(_numberGrid)
+	__cleanUpNumberGridUsingColValues(_numberGrid, colValues)
+	__cleanUpNumberGridUsingRowValues(_numberGrid)
+	__cleanUpEachGrid(_numberGrid)
 	# display.displayGridLineByLine(_numberGrid)
 	return __hasUnresolvedValues(_numberGrid)
 
-def sudoku(_grid):
+def sudokuGrid(_grid):
 	# display.displayGrid(_grid)
 	# display.displayLineByLine(_grid)
 	numberGrid = __findMissingValuesAtEachCell(_grid)
@@ -133,3 +192,20 @@ def sudoku(_grid):
 			break
 	# display.displayGrid(numberGrid)
 	return numberGrid
+
+def sudokuLine(_grid):
+	grid = []
+	counter=0;
+	numberList = []
+	for c in _grid:
+		numberList.append(int(c))
+		counter+=1
+		if( counter%9 == 0 ):
+			grid.append(numberList)
+			numberList = []
+	answer = sudokuGrid(grid)
+	result = ""
+	for r in range(9):
+		s = [str(i) for i in answer[r]] 
+		result += "".join(s)
+	return result
