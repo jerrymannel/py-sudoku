@@ -2,7 +2,9 @@
 
 Yet another Sudoku solver
 
-This **doesn't** use the common backtracking algorithms to solve puzzles that are easy, medium and hard. How ever this doesn't work for expert level puzzles. Probably i have to look at backtracking algorithm for this.
+This **doesn't** use the common backtracking algorithms to solve puzzles that are easy, medium and hard.
+
+However,this **doesn't work for expert level puzzles**. Probably i have to look at backtracking algorithm for this.
 
 # Usage and Description
 
@@ -23,6 +25,7 @@ There are two ways to supply input to the program
 ## Line
 
 Input: `704530200008160000102000685007910068005007302680054190000700800250000473000040026`
+
 Output: `76453821959816273413247968542791356891568734268325419734972685125689147387134592`
 
 
@@ -44,6 +47,6 @@ Output: `[[7, 6, 4, 5, 3, 8, 2, 1, 9], [5, 9, 8, 1, 6, 2, 7, 3, 4], [1, 3, 2, 4,
 
 Tested using data from Sudoku.com. Time to run 100 tests each
 
-Easy - 0m0.211s
-Medium - 0m0.211s
-Hard - 0m0.671s
+* Easy - 0m0.211s
+* Medium - 0m0.211s
+* Hard - 0m0.671s
