@@ -208,7 +208,7 @@ hardList = [
 ]
 
 for index, hard in enumerate(hardList[0], start=0):
-	result = main.sudokuLine(hard)
-	print("Hard test " + str(index + 1) + " " + ("PASS" if result == hardList[1][index] else "FAIL"))
+	result, duration= main.sudokuLine(hard)
+	print("Hard test " + str(index + 1) + " " + ("PASS" if result == hardList[1][index] else "FAIL") + " :: " + str(duration) + "ms")
 	# print(hard)
 	# print(result)

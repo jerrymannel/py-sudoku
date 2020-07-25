@@ -14,11 +14,11 @@ There are two ways to supply input to the program
 
 ## Line (String)
 
-`main.sudokuLine(line)`
+`solutionAsALine, duration = main.sudokuLine(line)`
 
 ## 9x9 Grid of numbers
 
-`main.sudokuGrid(grid)`
+`solvedGrid, duration = main.sudokuGrid(grid)`
 
 # Examples
 
@@ -47,6 +47,6 @@ Output: `[[7, 6, 4, 5, 3, 8, 2, 1, 9], [5, 9, 8, 1, 6, 2, 7, 3, 4], [1, 3, 2, 4,
 
 Tested using data from Sudoku.com. Time to run 100 tests each
 
-* Easy - 0m0.211s
-* Medium - 0m0.330s
-* Hard - 0m0.671s
+* Easy - 1.9ms
+* Medium - 2.9ms
+* Hard - 6.7ms

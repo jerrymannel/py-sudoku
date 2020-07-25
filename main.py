@@ -1,5 +1,5 @@
 # import data
-import display, sys
+import display, sys, datetime
 from copy import deepcopy
 
 numberSet = [1,2,3,4,5,6,7,8,9]
@@ -186,12 +186,16 @@ def scanAndClean(_numberGrid):
 def sudokuGrid(_grid):
 	# display.displayGrid(_grid)
 	# display.displayLineByLine(_grid)
+	now = datetime.datetime.now()
 	numberGrid = __findMissingValuesAtEachCell(_grid)
 	while(True):
 		if(scanAndClean(numberGrid) == 0):
 			break
 	# display.displayGrid(numberGrid)
-	return numberGrid
+	later = datetime.datetime.now()
+	difference = later - now
+	difference = difference.total_seconds() * 1000
+	return numberGrid, difference
 
 def sudokuLine(_grid):
 	grid = []
@@ -203,9 +207,9 @@ def sudokuLine(_grid):
 		if( counter%9 == 0 ):
 			grid.append(numberList)
 			numberList = []
-	answer = sudokuGrid(grid)
+	answer, duration = sudokuGrid(grid)
 	result = ""
 	for r in range(9):
 		s = [str(i) for i in answer[r]] 
 		result += "".join(s)
-	return result
+	return result, duration

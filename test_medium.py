@@ -208,7 +208,7 @@ medumList = [
 ]
 
 for index, medium in enumerate(medumList[0], start=0):
-	result = main.sudokuLine(medium)
-	print("Medium test " + str(index + 1) + " " + ("PASS" if result == medumList[1][index] else "FAIL"))
+	result,duration = main.sudokuLine(medium)
+	print("Medium test " + str(index + 1) + " " + ("PASS" if result == medumList[1][index] else "FAIL") + " :: " + str(duration) + "ms")
 	# print(medium)
 	# print(result)

@@ -208,7 +208,7 @@ easyList = [
 ]
 
 for index, easy in enumerate(easyList[0], start=0):
-	result = main.sudokuLine(easy)
-	print("Easy test " + str(index + 1) + " " + ("PASS" if result == easyList[1][index] else "FAIL"))
+	result, duration = main.sudokuLine(easy)
+	print("Easy test " + str(index + 1) + " " + ("PASS" if result == easyList[1][index] else "FAIL") + " :: " + str(duration) + "ms")
 	# print(easy)
 	# print(result)

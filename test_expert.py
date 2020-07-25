@@ -209,6 +209,6 @@ expertList = [
 
 for index, expert in enumerate(expertList[0], start=0):
 	result = main.sudokuLine(expert)
-	print("Expert test " + str(index + 1) + " " + ("PASS" if result == expertList[1][index] else "FAIL"))
+	print("Expert test " + str(index + 1) + " " + ("PASS" if result == expertList[1][index] else "FAIL") + " :: " + str(duration) + "ms")
 	# print(expert)
 	# print(result)
